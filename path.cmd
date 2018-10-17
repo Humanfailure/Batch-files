@@ -6,20 +6,24 @@ echo current path:
 path
 :: this shows the current path string
 
-set /p id="Enter folder to add to path: "
+set /p id="Enter folder to add or remove from to path: "
 :: this sets the variable id to what the user inputs, the /p command denotes the variable id as a string of text
+set /p setting="type ADD to add to path or type REMOVE to remove from path: "
+if %setting% ==  "ADD" goto addfolder
+if %setting% == "Remove" goto removefolder
 
-set syspath=""
-:: sets the "syspath" variable to only local path (this is done by not giving a value for syspath)
- 
-set /p syspath="Type /M for system wide path, hit ENTER to only set local path "
-:: asks user to determine if system wide path will also be changed
+:addfolder
 set PATH=%PATH%;%id%  
-
 echo "%id%"  added to path
 :: this shows the variable id in the terminal as text
+goto commonexit
 
-path
+:removefolder
+set path="%path:%id%=%
 
-set path=%path:C:\Users\Kai Morita-McVey\AppData\Local\Programs\Python\Python37-32%
+echo "%id%"  "removed from path"
+
+goto commonexit
+
+:commonexit
 path
